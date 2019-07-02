@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 53ffc920bd0efea4cadbd4c0a27a144d
+timeCreated: 1535483076
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: 'beIN Normal '
+  fontNames:
+  - 'beIN Normal '
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
