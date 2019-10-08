@@ -26,14 +26,14 @@ public class SetInfoObject : MonoBehaviour {
     void OnMouseDown()
     {
         mainMenMan.ShowInfoPanel(info);
-        myInitPos = transform.position;
+        /*myInitPos = transform.position;
         EnableParentPlanetAxeScript(false);
         canGo = true;
         mainMenMan.clickedPlanet = this;
         MainMenuManager.isPreviewingPlanet = true;
         if (GetComponent<TrailRenderer>() != null)
         myTrail.time = 0;
-        StartCoroutine(GoToViewPointAhead());
+        StartCoroutine(GoToViewPointAhead());*/
         
     }
 
