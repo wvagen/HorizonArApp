@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="sheep" size="1.000000 0.755269" />
+    <ImageTarget name="Chicks" size="1.000000 0.527594" />
+    <ImageTarget name="Duck" size="1.000000 0.749315" />
+    <ImageTarget name="Chicken" size="1.000000 0.529114" />
+    <ImageTarget name="Rabbit" size="1.000000 0.752489" />
+    <ImageTarget name="Caw" size="1.000000 0.518298" />
+    <ImageTarget name="5_senses" size="1.000000 0.667712" />
+  </Tracking>
+</QCARConfig>
