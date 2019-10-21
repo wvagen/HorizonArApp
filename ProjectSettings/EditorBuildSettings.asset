@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gallery.unity
     guid: b3c3695807319d84585172b4ec975607
+  - enabled: 1
+    path: Assets/Scenes/QuizGameMatching.unity
+    guid: 297c1e6cb56e15a488d61e1f6ae43868
   m_configObjects: {}

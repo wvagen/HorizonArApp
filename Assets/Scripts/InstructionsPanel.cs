@@ -14,16 +14,22 @@ public class InstructionsPanel : MonoBehaviour {
 
     public void ShowPopUp()
     {
-        myAnim.Play("PopUpShow");
+        StartCoroutine(PlayAfterEndOfFrame());
+    }
+
+    IEnumerator PlayAfterEndOfFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        myAnim.Play("InstructionPanelOpen");
     }
     public void ShowPopUp(string instructionTxt)
     {
         myRtlTxt.text = instructionTxt;
-        myAnim.Play("PopUpShow");
+        myAnim.Play("InstructionPanelOpen");
     }
     public void ShowUpDown()
     {
-        myAnim.Play("PopUpHide");
+        myAnim.Play("InstructionPanelClose");
     }
 
 

@@ -8,7 +8,7 @@ public class ShowingRandomAnimals : MonoBehaviour {
     public Transform animalsTransform;
 	List<GameObject> animalsChilds = new List<GameObject>();
 
-    const short animalsCountToBeShowen = 5;
+    short animalsCountToBeShowen = 0;
     void Start()
     {
         fillAnimalsList();
@@ -20,6 +20,7 @@ public class ShowingRandomAnimals : MonoBehaviour {
         {
             animalsChilds.Add(animalsTransform.GetChild(i).gameObject); 
         }
+        animalsCountToBeShowen = (short)animalsTransform.childCount;
         ShowRandomAnimals();    
     }
 

@@ -38,7 +38,7 @@ public class QuizMasterClass : MonoBehaviour {
 
     public void ReturnBtn()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainArScene");
     }
 
    public void SetNewLinePos(Vector2 newPos)

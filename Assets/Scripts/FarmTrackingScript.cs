@@ -16,7 +16,7 @@ public class FarmTrackingScript : MonoBehaviour, ITrackableEventHandler
 
     bool canShowRandomAnimal = true;
 
-    const short amountOfRandomShowenAnimals = 5;
+    const short amountOfRandomShowenAnimals = 1;
 
     #endregion // PROTECTED_MEMBER_VARIABLES
 
