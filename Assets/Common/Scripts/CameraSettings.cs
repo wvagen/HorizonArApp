@@ -16,6 +16,11 @@ public class CameraSettings : MonoBehaviour
     private bool mVuforiaStarted = false;
     private bool mAutofocusEnabled = true;
     private bool mFlashTorchEnabled = false;
+    private bool focusing = false;
+    public static bool DoubleTap
+    {
+        get { return Input.touchSupported && (Input.touches.Length > 0) && (Input.touches[0].tapCount == 2); }
+    }
     #endregion //PRIVATE_MEMBERS
 
 
@@ -25,6 +30,15 @@ public class CameraSettings : MonoBehaviour
         var vuforia = VuforiaARController.Instance;
         vuforia.RegisterVuforiaStartedCallback(OnVuforiaStarted);
         vuforia.RegisterOnPauseCallback(OnPaused);
+    }
+
+    void Update()
+    {
+        if (DoubleTap && !this.focusing)
+        {
+            this.focusing = true;
+            TriggerAutofocusEvent();
+        }
     }
     #endregion // MONOBEHAVIOUR_METHODS
 
@@ -81,6 +95,8 @@ public class CameraSettings : MonoBehaviour
 
     public void TriggerAutofocusEvent()
     {
+        StatusMessage.Instance.Display("Manual Focus Triggered", true);
+        
         // Trigger an autofocus event
         CameraDevice.Instance.SetFocusMode(CameraDevice.FocusMode.FOCUS_MODE_TRIGGERAUTO);
 
@@ -162,6 +178,8 @@ public class CameraSettings : MonoBehaviour
             CameraDevice.Instance.SetFocusMode(CameraDevice.FocusMode.FOCUS_MODE_CONTINUOUSAUTO);
         else
             CameraDevice.Instance.SetFocusMode(CameraDevice.FocusMode.FOCUS_MODE_NORMAL);
+
+        this.focusing = false;
     }
 
     #endregion // PRIVATE_METHODS

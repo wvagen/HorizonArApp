@@ -31,10 +31,20 @@ public class NavigationHandler : MonoBehaviour
     public void HandleBackButtonPressed()
     {
         Debug.Log("HandleBackButtonPressed() called.");
-       /* if (SceneManager.GetActiveScene().name != m_BackButtonNavigation)
-            LoadScene(m_BackButtonNavigation);*/
+        if (SceneManager.GetActiveScene().name != m_BackButtonNavigation)
+            LoadScene(m_BackButtonNavigation);
     }
     #endregion // PUBLIC_METHODS
 
 
+    #region PRIVATE_METHODS
+    void LoadScene(string sceneName)
+    {
+        Debug.Log("LoadScene(" + sceneName + ") called.");
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+    #endregion // PRIVATE_METHODS
 }

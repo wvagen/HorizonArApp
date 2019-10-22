@@ -1,11 +1,12 @@
 ﻿/*===============================================================================
-Copyright (c) 2016-2018 PTC Inc. All Rights Reserved.
+Copyright (c) 2019 PTC Inc. All Rights Reserved.
 
 Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 ===============================================================================*/
 
 using System.Collections.Generic;
+using UnityEngine;
 
 public class AboutScreenInfo
 {
@@ -21,12 +22,12 @@ public class AboutScreenInfo
 
     public string GetTitle(string titleKey)
     {
-        return GetValuefromDictionary(titles, titleKey);
+        return GetValuefromDictionary(this.titles, titleKey);
     }
 
     public string GetDescription(string descriptionKey)
     {
-        return GetValuefromDictionary(descriptions, descriptionKey);
+        return GetValuefromDictionary(this.descriptions, descriptionKey);
     }
 
     #endregion // PUBLIC_METHODS
@@ -56,10 +57,10 @@ public class AboutScreenInfo
 
         // Init our Title Strings
 
-        titles = new Dictionary<string, string>()
+        this.titles = new Dictionary<string, string>()
         {
             { "ImageTargets", "Image Targets" },
-            { "VuMark", "VuMark" },
+            { "VuMarks", "VuMarks" },
             { "CylinderTargets", "Cylinder Targets" },
             { "MultiTargets", "Multi Targets" },
             { "UserDefinedTargets", "User Defined Targets" },
@@ -71,53 +72,66 @@ public class AboutScreenInfo
             { "BackgroundTextureAccess", "Background Texture Access" },
             { "OcclusionManagement", "Occlusion Management" },
             { "Books", "Books" },
-            { "ARVR", "ARVR" }
+            { "ModelTargetsTest", "Model Targets Test" }
         };
 
         // Init our Common Cache Strings
 
         string vuforiaVersion = Vuforia.VuforiaUnity.GetVuforiaLibraryVersion();
         string unityVersion = UnityEngine.Application.unityVersion;
-        UnityEngine.Debug.Log("Vuforia " + vuforiaVersion + "\nUnity " + unityVersion);
+        UnityEngine.Debug.Log("Vuforia Engine " + vuforiaVersion + "\nUnity " + unityVersion);
 
         string vuforia = Vuforia.VuforiaRuntime.Instance.InitializationState != Vuforia.VuforiaRuntime.InitState.NOT_INITIALIZED
-                                ? "<color=green>Yes</color>"
+                                ? "<#23B200>Yes</color>"
                                 : "<color=red>No</color>";
+        string fusionProvider = Vuforia.VuforiaRuntimeUtilities.GetActiveFusionProvider().ToString();
 
         string description = "\n<size=26>Description:</size>";
         string keyFunctionality = "<size=26>Key Functionality:</size>";
         string targets = "<size=26>Targets:</size>";
         string instructions = "<size=26>Instructions:</size>";
         string footer =
-            "<size=26>Build Version Info:</size>" +
-            "\n• Vuforia " + vuforiaVersion +
+            "<size=26>Version Info:</size>" +
+            "\n• Vuforia Engine " + vuforiaVersion +
             "\n• Unity " + unityVersion +
             "\n" +
-            "\n<size=26>Project Settings Info:</size>" +
-            "\n• Vuforia Enabled: " + vuforia +
+            "\n<size=26>Vuforia Info:</size>" +
+            "\n• Vuforia Engine Enabled: " + vuforia +
+            "\n• Fusion Provider: " + fusionProvider.Replace("_", " ") +
             "\n" +
-            "\n<size=26>Statistics:</size>" +
-            "\nData collected is used solely for product quality improvements" +
-            "\nhttps://developer.vuforia.com/legal/statistics" +
+            "\n<size=26>System Info:</size>" +
+            "\n• Device Name: " + SystemInfo.deviceName +
+            "\n• Device Model: " + SystemInfo.deviceModel +
+            "\n• Operating System: " + SystemInfo.operatingSystem +
+            "\n• System Memory: " + SystemInfo.systemMemorySize +
+            "\n• Processor Count: " + SystemInfo.processorCount +
+            "\n• Processor Frequency: " + SystemInfo.processorFrequency +
             "\n" +
-            "\n<size=26>Developer Agreement:</size>" +
-            "\nhttps://developer.vuforia.com/legal/vuforia-developer-agreement" +
+            "\n<size=26>Graphics Info:</size>" +
+            "\n• Graphics Memory: " + SystemInfo.graphicsMemorySize +
+            "\n• Device Name: " + SystemInfo.graphicsDeviceName +
+            "\n• Device Vendor: " + SystemInfo.graphicsDeviceVendor +
+            "\n• Device Type: " + SystemInfo.graphicsDeviceType +
+            "\n• Device Version: " + SystemInfo.graphicsDeviceVersion +
+            "\n• MultiThreaded: " + SystemInfo.graphicsMultiThreaded +
             "\n" +
-            "\n<size=26>Privacy Policy:</size>" +
-            "\nhttps://developer.vuforia.com/legal/privacy" +
-            "\n" +
-            "\n<size=26>Terms of Use:</size>" +
-            "\nhttps://developer.vuforia.com/legal/EULA" +
+            "\n<size=26>Links:</size>" +
+            "\n• <link=https://developer.vuforia.com/legal/vuforia-developer-agreement><color=blue><u>Developer Agreement</u></color></link>" +
+            "\n• <link=https://developer.vuforia.com/legal/privacy><color=blue><u>Privacy Policy</u></color></link>" +
+            "\n• <link=https://developer.vuforia.com/legal/EULA><color=blue><u>Terms of Use</u></color></link>" +
+            "\n• <link=https://developer.vuforia.com/legal/statistics><color=blue><u>Statistics</u></color></link>" +
             "\n\n" +
-            "© 2018 PTC Inc. All Rights Reserved.";
+            "© 2019 PTC Inc. All Rights Reserved." +
+            "\n";
+        string targetPDFsURL = "<link=https://library.vuforia.com/content/vuforia-library/en/articles/Solution/sample-apps-target-pdfs.html>";
 
         // Init our Description Strings
 
-        descriptions = new Dictionary<string, string>();
+        this.descriptions = new Dictionary<string, string>();
 
         // Image Targets
 
-        descriptions.Add(
+        this.descriptions.Add(
             "ImageTargets",
             description +
             "\nThe Image Targets sample shows how to detect an image " +
@@ -130,22 +144,22 @@ public class AboutScreenInfo
             "\n• Manage camera functions: flash and continuous autofocus" +
             "\n\n" +
             targets +
-            "\n• Included Targets" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
-            "\n• Double tap to access options menu" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // VuMark
 
-        descriptions.Add(
-            "VuMark",
+        this.descriptions.Add(
+            "VuMarks",
             description +
-            "\nThe VuMark sample shows how to detect and track VuMarks." +
+            "\nThe VuMarks sample shows how to detect and track VuMarks." +
             "\n\n" +
             keyFunctionality +
             "\n• Simultaneous detection and tracking of multiple VuMarks" +
@@ -154,12 +168,12 @@ public class AboutScreenInfo
             "\n• Render an outline when a VuMark is detected" +
             "\n\n" +
             targets +
-            "\n• Included VuMarks" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point device at VuMark" +
-            "\n• Single tap to focus" +
-            "\n• Double tap to access options menu" +
+            "\n• Double tap to focus" +
             "\n• Tap window showing VuMark ID to dismiss" +
             "\n\n" +
             footer + "\n");
@@ -167,7 +181,7 @@ public class AboutScreenInfo
 
         // Cylinder Targets
 
-        descriptions.Add(
+        this.descriptions.Add(
             "CylinderTargets",
             description +
             "\nThe Cylinder Targets sample shows how to detect a cylindrical " +
@@ -178,20 +192,21 @@ public class AboutScreenInfo
             "\n• Occlusion handling" +
             "\n\n" +
             targets +
-            "\n• Included Target" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             "Print target and wrap around a standard soda can." +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // Multi Targets
 
-        descriptions.Add(
+        this.descriptions.Add(
             "MultiTargets",
             description +
             "\nThe Multi Targets sample shows how to detect a simple cuboid 3D shape " +
@@ -202,18 +217,19 @@ public class AboutScreenInfo
             "\n• Occlusion handling" +
             "\n\n" +
             targets +
-            "\n• Included Target" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // User Defined Targets
 
-        descriptions.Add(
+        this.descriptions.Add(
             "UserDefinedTargets",
             description +
             "\nThe User Defined Targets sample shows how to capture and create an " +
@@ -225,15 +241,14 @@ public class AboutScreenInfo
             "\n\n" +
             instructions +
             "\n• Hold device parallel to feature rich target and tap camera button" +
-            "\n• Single tap to focus" +
-            "\n• Double tap to access options menu" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // Object Reco
 
-        descriptions.Add(
+        this.descriptions.Add(
             "ObjectReco",
             description +
             "\nThe Object Recognition sample shows how to recognize and track an object." +
@@ -244,19 +259,19 @@ public class AboutScreenInfo
             "\n• Manage camera functions: flash" +
             "\n\n" +
             targets +
-            "\n• Included Target" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
-            "\n• Double tap to access the options menu" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // Cloud Reco
 
-        descriptions.Add(
+        this.descriptions.Add(
             "CloudReco",
             description +
             "\nThe Cloud Reco sample shows how to use the cloud recognition service to " +
@@ -267,66 +282,77 @@ public class AboutScreenInfo
             "\n• Activate Extended Tracking" +
             "\n\n" +
             targets +
-            "\n• Included Targets" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
-            "\n• Double tap to access options menu" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // Virtual Buttons
 
-        descriptions.Add(
+        this.descriptions.Add(
             "VirtualButtons",
             description +
             "\nThe Virtual Buttons sample shows how the developer can define rectangular " +
             "regions on image targets that trigger an event when touched or occluded in " +
-            "the camera view. The sample renders a 3D object that changes color when " +
+            "the camera view. The sample renders a 3D object that performs an animation when " +
             "one of the virtual buttons is triggered." +
             "\n\n" +
             keyFunctionality +
             "\n• Button occlusion event handling" +
             "\n\n" +
             targets +
-            "\n• Included Targets" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>Target PDFs</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // Model Targets
 
-        descriptions.Add(
+        this.descriptions.Add(
             "ModelTargets",
             description +
-            "\nThe Model Targets sample shows how to detect a 3D object " +
-            "and render a simple 3D representation on top of it." +
+            "\nThe Model Targets Sample shows how to detect a 3D object and " +
+            "render a simple 3D representation over it. The sample demonstrates " +
+            "how Standard, Advanced, and 360 DataSets work." +
             "\n\n" +
             keyFunctionality +
-            "\n• Load and activate a single Model Target database at a time" +
-            "\n• Detection using the initial Detection Position of the Model Target" +
+            "\n• Standard Model Target: Loads a Model Target with multiple Guide Views " +
+            "that can be cycled with the click of a button and used to pick which view " +
+            "to detect of the physical model" +
+            "\n• Advanced Model Target: Loads two Model Targets that have automatic " +
+            "detection and snapping of Guide Views to the physical models" +
+            "\n• Model Target 360: Loads a Model Target that can be detected from arbitrary views" +
             "\n• Automatic 3D object tracking after successful detection" +
             "\n• Extended Tracking when target is not visible in the camera view" +
             "\n\n" +
             targets +
-            "\n• ModelTarget: 3D Printed Model" +
+            "\n• Model Target: 3D Printed Model (Mars Lander)" +
+            "\n• Model Target: Toy Model (Bike)" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
+            "\n• Double tap to focus" +
+            "\n• Switch to access a different dataset" +
+            "\n• Mars Lander is in all three datasets" +
+            "\n• Motorcycle is in the Advanced dataset" +
+            "\n• Change the Detection Position if needed" +
             "\n\n" +
             footer + "\n");
 
 
         // Ground Plane
 
-        descriptions.Add(
+        this.descriptions.Add(
             "GroundPlane",
             description +
             "\nThe Ground Plane sample demonstrates how to place " +
@@ -360,7 +386,7 @@ public class AboutScreenInfo
 
         // Background Texture Access
 
-        descriptions.Add(
+        this.descriptions.Add(
             "BackgroundTextureAccess",
             description +
             "\nThe Background Texture Access sample shows how to use two shaders to " +
@@ -371,7 +397,8 @@ public class AboutScreenInfo
             "\n• Apply shaders to video background" +
             "\n\n" +
             targets +
-            "\n• ImageTarget: Fissure (Included with Sample)" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>ImageTarget: Fissure</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
@@ -382,7 +409,7 @@ public class AboutScreenInfo
 
         // Occlusion Management
 
-        descriptions.Add(
+        this.descriptions.Add(
             "OcclusionManagement",
             description +
             "\nThe Occlusion Management sample shows the use of transparent shaders to " +
@@ -392,18 +419,19 @@ public class AboutScreenInfo
             "\n• Manage occlusion" +
             "\n\n" +
             targets +
-            "\n• MultiTarget: MarsBox (Included with Sample)" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>MultiTarget: MarsBox</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at target to view" +
-            "\n• Single tap to focus" +
+            "\n• Double tap to focus" +
             "\n\n" +
             footer + "\n");
 
 
         // Books
 
-        descriptions.Add(
+        this.descriptions.Add(
             "Books",
             description +
             "\nThe Books sample shows how to use the Cloud Recognition service to build a " +
@@ -416,32 +444,49 @@ public class AboutScreenInfo
             "\n• Transition display of book info to screen when off target" +
             "\n\n" +
             targets +
-            "\n• ImageTargets: 3 Book Covers (Included with Sample)" +
+            "\n• " + targetPDFsURL +
+            "<color=blue><u>ImageTargets: 3 Book Covers</u></color></link>" +
             "\n\n" +
             instructions +
             "\n• Point camera at sample book cover to view info" +
             "\n• Press close button to scan another book" +
             "\n\n" +
             footer + "\n");
-
-
-        // ARVR
-
-        descriptions.Add(
-            "ARVR",
+        
+        // Model Targets Test
+        
+        this.descriptions.Add(
+            "ModelTargetsTest",
             description +
-            "\nThis sample demonstrates a mixed reality experience that starts in AR and moves to VR." +
+            "\nThe Model Targets Test app allows you to detect " +
+            "and track a Model Target out of a set of multiple targets." +
+#if ENABLE_MODEL_TARGETS_TEST_APP_DIAGNOSTICS
+            " You can also record tracking data and report feedback to Vuforia." +
+#endif
             "\n\n" +
             keyFunctionality +
-            "\n• Transition between AR camera tracking and VR device tracking" +
+            "\n• Detection and tracking of Model Targets" +
+#if ENABLE_MODEL_TARGETS_TEST_APP_DIAGNOSTICS
+            "\n• Collection and sending of SDK-generated data for later analysis and support" +
+            "\n• Screenshot Capture" +
+#endif
+            "\n• Tracker reset" +
             "\n\n" +
             targets +
-            "\n• ImageTarget: Astronaut (Included with Sample)" +
+            "\n• Model Target: 3D Printed Model (Mars Lander)" +
             "\n\n" +
             instructions +
-            "\n• Point camera at target to view" +
-            "\n• Aim the cursor at the button (labeled “VR”) to trigger the transition to VR" +
-            "\n• In VR mode, look at the button on the floor to return to AR" +
+            "\n• Point camera at 3D object to start tracking" +
+            "\n• Double tap to focus" +
+            "\n\n" +
+            "<size=26>Compatible Devices:</size>" +
+            "\n• <link=https://library.vuforia.com/articles/Solution/vuforia-fusion-supported-devices.html><color=blue><u>Vuforia Fusion Compatible Devices</u></color></link>" +
+            "\n\n" +
+            "<size=26>Additional Info:</size>" +
+            "\n• <link=https://developer.vuforia.com/legal/CAD-3rd-Party-License><color=blue><u>3rd Party License: CAD</u></color></link>" +
+#if ENABLE_MODEL_TARGETS_TEST_APP_DIAGNOSTICS
+            "\n• <link=https://developer.vuforia.com/legal/statistics_CAD><color=blue><u>Statistics: CAD</u></color></link>" +
+#endif
             "\n\n" +
             footer + "\n");
     }
