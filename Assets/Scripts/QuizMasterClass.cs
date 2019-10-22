@@ -11,7 +11,7 @@ public class QuizMasterClass : MonoBehaviour {
     public Vector2[] rightAnswers;
 
     short pointCount = 0;
-
+    bool isWin = false;
     void Start()
     {
         HelpBtn();
@@ -21,6 +21,7 @@ public class QuizMasterClass : MonoBehaviour {
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
+        if (!isWin) confirm();
     }
 
     public void HelpBtn()
@@ -28,12 +29,20 @@ public class QuizMasterClass : MonoBehaviour {
         instPanel.ShowPopUp();
     }
 
-    public void confirmBtn()
+    void confirm()
     {
-        if (pointCount == rightAnswers.Length)
-            instPanel.ShowPopUp("أحسنت");
-        else instPanel.ShowPopUp("ركز");
 
+        if (pointCount == rightAnswers.Length)
+        {
+            instPanel.ShowPopUp("أحسنت");
+            isWin = true;
+        }
+
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene("QuizGameMatching");
     }
 
     public void ReturnBtn()
@@ -50,6 +59,7 @@ public class QuizMasterClass : MonoBehaviour {
 
    public void CheckTheSolution(short part1Indice,short part2Indice)
    {
+       
        if (rightAnswers[part1Indice].y == part2Indice)
        {
            Debug.Log("RIGHT ANSWER");
