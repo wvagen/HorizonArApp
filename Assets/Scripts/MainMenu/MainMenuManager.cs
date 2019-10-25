@@ -47,6 +47,12 @@ public class MainMenuManager : MonoBehaviour {
         }
     }
 
+    public void DispalyAndHideHelpPanel(bool isShowing)
+    {
+        if (isShowing) myAnim.Play("ScaleHelpPanel");
+        else myAnim.Play("ShrinkHelpPanel");
+    }
+
     public void ShowInfoPanel(string info)
     {
         infoTxt.text = info;

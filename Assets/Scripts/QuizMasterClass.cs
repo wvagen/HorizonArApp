@@ -10,6 +10,8 @@ public class QuizMasterClass : MonoBehaviour {
     public InstructionsPanel instPanel;
     public Vector2[] rightAnswers;
 
+    static bool isRetrying = false;
+
     short pointCount = 0;
     bool isWin = false;
     void Start()
@@ -26,7 +28,10 @@ public class QuizMasterClass : MonoBehaviour {
 
     public void HelpBtn()
     {
-        instPanel.ShowPopUp();
+        if (isRetrying) instPanel.ShowPopUp("هناك خطأ أعد مرة أخرى");
+        else instPanel.ShowPopUp("أربط بسهم");
+        isRetrying = false;
+
     }
 
     void confirm()
@@ -36,12 +41,14 @@ public class QuizMasterClass : MonoBehaviour {
         {
             instPanel.ShowPopUp("أحسنت");
             isWin = true;
+            isRetrying = false;
         }
 
     }
 
     public void Retry()
     {
+        isRetrying = true;
         SceneManager.LoadScene("QuizGameMatching");
     }
 

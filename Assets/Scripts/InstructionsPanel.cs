@@ -14,8 +14,10 @@ public class InstructionsPanel : MonoBehaviour {
 
     public void ShowPopUp()
     {
-        StartCoroutine(PlayAfterEndOfFrame());
+        
     }
+
+
 
     IEnumerator PlayAfterEndOfFrame()
     {
@@ -25,7 +27,7 @@ public class InstructionsPanel : MonoBehaviour {
     public void ShowPopUp(string instructionTxt)
     {
         myRtlTxt.text = instructionTxt;
-        myAnim.Play("InstructionPanelOpen");
+        StartCoroutine(PlayAfterEndOfFrame());
     }
     public void ShowUpDown()
     {
