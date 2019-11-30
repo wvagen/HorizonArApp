@@ -5,13 +5,14 @@ using UnityEngine;
 public class SetInfoObject : MonoBehaviour {
 
     public MainMenuManager mainMenMan;
-    public string info;
+    public string info,firstDisplayedInfo;
     public bool canGo = false;
 
     Vector3 myInitPos;
     TrailRenderer myTrail;
 
     short myTrailInitDuration = 20;
+    bool isFirstDisplayedInfoDisplayed = false;
 
     void Start()
     {
@@ -20,6 +21,22 @@ public class SetInfoObject : MonoBehaviour {
         {
             myTrail = GetComponent<TrailRenderer>();
             myTrailInitDuration = (short)myTrail.time;
+        }
+    }
+
+    void Update()
+    {
+        if (gameObject.name == "Sun")
+        {
+            if (GetComponent<SphereCollider>().enabled && !isFirstDisplayedInfoDisplayed)
+            {
+                isFirstDisplayedInfoDisplayed = true;
+                mainMenMan.ShowInfoPanel(firstDisplayedInfo);
+            }
+            else if (!GetComponent<SphereCollider>().enabled && isFirstDisplayedInfoDisplayed)
+            {
+                isFirstDisplayedInfoDisplayed = false;
+            }
         }
     }
 

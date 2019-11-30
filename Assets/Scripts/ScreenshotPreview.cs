@@ -21,9 +21,9 @@ public class ScreenshotPreview : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         
-        
+       
 		files = Directory.GetFiles(Application.persistentDataPath + "/", "*.png"); //for android
-        //files = Directory.GetFiles("C:/Users/Mouadh Mkadmi/Documents/Unity Projects/HorizonArApp" + "/", "*.png"); // for pc
+        //files = Directory.GetFiles("D:/Documents/Unity Projects/HorizonArApp Updated/HorizonArApp" + "/", "*.png"); // for pc
 		if (files.Length > 0) {
             Debug.Log(files.Length);
             GenerateAlbumPhotos();
@@ -72,11 +72,17 @@ public class ScreenshotPreview : MonoBehaviour {
             canvas.GetComponent<Image>().enabled = false;
             arrows.SetActive(false);
             albumTransform.gameObject.SetActive(true);
+            isPhotoDisplayed = false;
         }
         else
         {
             SceneManager.LoadScene("MainMenu");
         }
+    }
+
+    public void SaveOnDeviceBtn()
+    {
+        ScreenCapture.CaptureScreenshot(files[whichScreenShotIsShown]);
     }
 
 	Texture2D GetScreenshotImage(string filePath)
