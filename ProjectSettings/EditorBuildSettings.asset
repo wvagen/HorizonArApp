@@ -42,6 +42,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/MyScenes/2.1-MainMenu Portrait.unity
+    guid: 8808d4a939304994699401c00ff88735
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 512686b104af30f40967ef15a0583f11
   - enabled: 1
@@ -50,7 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gallery.unity
     guid: b3c3695807319d84585172b4ec975607
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/QuizGameMatching.unity
     guid: 297c1e6cb56e15a488d61e1f6ae43868
   m_configObjects: {}

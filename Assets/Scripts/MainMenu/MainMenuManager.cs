@@ -15,6 +15,11 @@ public class MainMenuManager : MonoBehaviour {
     public SetInfoObject clickedPlanet;
     public static bool isPreviewingPlanet = false;
 
+    void Start()
+    {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+    }
+
     public void LoadScene(string sceneName)
     {
         if (loadingTxt != null)

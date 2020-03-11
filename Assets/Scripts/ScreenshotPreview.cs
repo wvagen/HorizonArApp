@@ -10,7 +10,7 @@ public class ScreenshotPreview : MonoBehaviour {
 
     public GameObject photoPrefab,arrows,noPhotosGO;
     public Transform albumTransform;
-
+    public Animator canvAnim;
 	[SerializeField]
 	GameObject canvas;
 	string[] files = null;
@@ -20,10 +20,11 @@ public class ScreenshotPreview : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
        
-		files = Directory.GetFiles(Application.persistentDataPath + "/", "*.png"); //for android
-        //files = Directory.GetFiles("D:/Documents/Unity Projects/HorizonArApp Updated/HorizonArApp" + "/", "*.png"); // for pc
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+
+		//files = Directory.GetFiles(Application.persistentDataPath + "/", "*.png"); //for android
+        files = Directory.GetFiles("D:/Documents/Unity Projects/HorizonArApp Updated/HorizonArApp" + "/", "*.png"); // for pc
 		if (files.Length > 0) {
             Debug.Log(files.Length);
             GenerateAlbumPhotos();
@@ -76,13 +77,17 @@ public class ScreenshotPreview : MonoBehaviour {
         }
         else
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("2.1-MainMenu Portrait");
         }
     }
 
     public void SaveOnDeviceBtn()
     {
-        ScreenCapture.CaptureScreenshot(files[whichScreenShotIsShown]);
+        string name = string.Format("{0}_Capture{1}_{2}.png", Application.productName, "{0}", System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+        string pathToFile = files[whichScreenShotIsShown];
+        Texture2D texture = GetScreenshotImage(pathToFile);
+        Debug.Log("Permission result: " + NativeGallery.SaveImageToGallery(texture.GetRawTextureData(), Application.productName + " Captures", name));
+        canvAnim.Play("TickAnimation");
     }
 
 	Texture2D GetScreenshotImage(string filePath)
